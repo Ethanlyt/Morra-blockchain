@@ -5,14 +5,14 @@ import AttacherViews from './View/AttacherViews';
 import { renderDOM, renderView } from './View/render';
 import './index.css';
 import * as backend from './build/index.main.mjs';
-import { loadStdlib, ALGO_MyAlgoConnect  } from '@reach-sh/stdlib';
+import { loadStdlib, ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
 const reach = loadStdlib({
     ...process.env, 
     'REACH_CONNECTOR_MODE': 'ALGO',
     });
 
 reach.setWalletFallback(reach.walletFallback({
-    providerEnv: 'TestNet', ALGO_MyAlgoConnect
+    providerEnv: 'TestNet', MyAlgoConnect
 }))
 
 const { standardUnit } = reach
