@@ -5,6 +5,7 @@
 
 const [isOutCome, PLAYER1_WIN, DRAW, PLAYER2_WIN] = makeEnum(3)
 
+//Game logic
 const winner = (handPlayer1,handPlayer2,guessPlayer1,guessPlayer2) =>{
     const sum = handPlayer1 + handPlayer2
 
@@ -36,7 +37,7 @@ forall(UInt, handPlayer1 =>
         forall(UInt, sameGuess => 
                 assert(winner(handPlayer1, handPlayer2, sameGuess, sameGuess) == DRAW))))
 
-
+//Player function
 const PlayerInterface = {
     ...hasRandom,
     getHand: Fun([UInt],UInt),
@@ -47,6 +48,7 @@ const PlayerInterface = {
     displayInfo: Fun([UInt, UInt, UInt, UInt],Null)
 }
 
+//initial commit
 export const main = Reach.App ( () => {
     const Player1 = Participant('PlayerONE', {
         ...PlayerInterface,
@@ -81,6 +83,7 @@ export const main = Reach.App ( () => {
     var [ outcome , round ] = [ DRAW , 1 ]
     invariant( balance() == 2 * wager && isOutCome(outcome))
 
+//Game process
     while( outcome == DRAW){
         commit();
 
@@ -152,6 +155,7 @@ export const main = Reach.App ( () => {
             
     }
 
+//End gmae: Game result
     assert(outcome == PLAYER1_WIN || outcome == PLAYER2_WIN)
 
     transfer(2 * wager).to(outcome == PLAYER1_WIN ? Player1 : Player2)
